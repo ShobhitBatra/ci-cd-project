@@ -1,0 +1,39 @@
+# services:
+#   backend:
+#     image: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/backend:latest
+#     ports:
+#       - "5000:5000"
+#     restart: always
+#     networks:
+#       - app-network
+
+#   frontend:
+#     image: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/frontend:latest
+#     ports:
+#       - "80:80"
+#     depends_on:
+#       - backend
+#     restart: always
+#     networks:
+#       - app-network
+
+# networks:
+#   app-network:
+#     driver: bridge
+
+
+# services:
+#   backend:
+#     build: ./frontend
+#     ports:
+#       - "5000:5000"
+#     restart: always
+#   frontend:
+#     build: ./backend
+#     ports:
+#       - "80:80"
+#     depends_on:
+#       - backend
+#     restart: always
+
+

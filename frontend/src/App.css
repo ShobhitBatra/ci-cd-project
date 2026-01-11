@@ -1,0 +1,30 @@
+/* Resetting default browser margins */
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #000000; /* Force background to black */
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+}
+
+.container {
+  background-color: #000000;
+  color: #ffffff;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+pre {
+  background: #222;
+  padding: 15px;
+  border-radius: 5px;
+  color: #00ff00; /* Green color like a terminal */
+  text-align: left;
+}
