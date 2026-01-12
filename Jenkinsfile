@@ -3,8 +3,8 @@ pipeline {
     environment {
         AWS_ACCOUNT_ID = credentials('AWS_ACCOUNT_ID')
         AWS_REGION     = credentials('AWS_REGION')
-        ECR_REPO_FE    = "frontend-repo"
-        ECR_REPO_BE    = "backend-repo"
+        ECR_REPO_FE    = 'frontend-repo'
+        ECR_REPO_BE    = 'backend-repo'
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
     }
@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage('checkout code') {
             steps {
-                git branch: 'main', url: "https://github.com/ShobhitBatra/ci-cd-project.git"
+                git branch: 'main', url: 'https://github.com/ShobhitBatra/ci-cd-project.git'
             }
         }
 
@@ -67,6 +67,10 @@ pipeline {
             }
         }
 
+    }
+}
+
+
         // stage('Copy Compose File to EC2'){
         //     steps {
         //         sh """
@@ -74,7 +78,3 @@ pipeline {
         //         """
         //     }
         // }
-    }
-}
-
-

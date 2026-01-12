@@ -44,6 +44,7 @@ resource "aws_security_group_rule" "all_outbound" {
 resource "aws_instance" "ec2" {
   ami                    = "ami-02b8269d5e85954ef"
   instance_type          = "t2.micro"
+  iam_instance_profile = aws_iam_instance_profile.ec2_profile.name
   key_name               = aws_key_pair.key_ec2.key_name
   vpc_security_group_ids = [aws_security_group.sg_ec2.id]
   user_data              = file("./userdata.sh")
@@ -52,3 +53,31 @@ resource "aws_instance" "ec2" {
     Name = "ec2"
   }
 }
+
+# Creating IAM Role for EC2 to acccess ECR
+resource "aws_iam_role" "iam_role_ec2" {
+  name = "ec2-ecr-read-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect = "Allow"
+      Principal = { Service = "ec2.amazonaws.com" }
+      Action = "sts:AssumeRole"
+    }]
+  })
+}
+
+# Attach ECR ReadOnly Policy
+resource "aws_iam_role_policy_attachment" "ecr_read" {
+  role       = aws_iam_role.iam_role_ec2.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+}
+
+# Instance Profile
+resource "aws_iam_instance_profile" "ec2_profile" {
+  name = "ec2-ecr-instance-profile"
+  role = aws_iam_role.iam_role_ec2.name
+}
+
+# Because EC2 can only attach IAM roles via an Instance Profile — it’s the container that passes the role’s credentials to the instance.

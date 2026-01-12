@@ -7,7 +7,7 @@ function App() {
   const [error, setError] = useState(null); // Error check karne ke liye
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/data')
+    axios.get('http://backend:5000/api/data')
       .then(response => {
         setData(response.data);
       })
